@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table (name = "products")
+@Table (name = "stocks")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor//емулює таблицю з БД
@@ -16,21 +16,21 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "product_id")
+    @Column (name = "stock_id")
     private Integer id;
 
-    @Column (name = "title")
-    private String title;
+    @Column (name = "stock_name")
+    private String name;
 
-    @Column (name = "desc", columnDefinition = "text") //міняємо тип з varchar в текст
+    @Column (name = "stock_desc") //міняємо тип з varchar в текст
     private String desc;
 
-    @Column (name = "price")
+    @Column (name = "stock_price")
     private int price;
 
     @Column (name = "stock_exchange")
     private String stock_exchange;
 
-    @Column (name = "author")
+    @Column (name = "stock_user")
     private String author;
 }

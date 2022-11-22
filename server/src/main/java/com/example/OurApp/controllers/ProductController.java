@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
     }
      */
 public class ProductController {
-    private final ProductServices productServices; //хороший тон прописати final
+    private final ProductServices productServices; //хороший тон як прописати final
 
 
     @GetMapping("/")
-    public String products(@RequestParam(name = "title", required = false) String title, Model model) {
-        model.addAttribute("products", productServices.listProducts(title));
-        return "products"; //назва представлення в тілі документу (має через command+CLICK переходить на ресурс)
+    public String products(@RequestParam(name = "stock_name", required = false) String title, Model model) {
+        model.addAttribute("user", productServices.listProducts(title));
+        return "products";
     }
 
     @GetMapping("/product/{id}")
     public String productInfo(@PathVariable Integer id, Model model) {
-        model.addAttribute("product", productServices.getProductById(id));
+        model.addAttribute("user", productServices.getProductById(id));
         return "product-info";
     }
     @PostMapping("/product/create")

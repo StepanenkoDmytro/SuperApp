@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Slf4j
+@Slf4j //логування
 @RequiredArgsConstructor
 public class ProductServices {
     private final ProductRepository productRepository;
 
     public List<Product> listProducts(String title) {
-        if (title != null) productRepository.findByTitle(title);
+//        if (title != null) productRepository.findByTitle(title);
          return productRepository.findAll();
     }
     public void saveProduct(Product product) {
