@@ -1,9 +1,11 @@
 package com.example.OurApp.services;
 
 import com.example.OurApp.models.User;
+import com.example.OurApp.models.enums.Role;
 import com.example.OurApp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,22 +15,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public List<User> listUser(String name) {
-        return userRepository.findAll();
-    }
-
-    public void saveUser(User user) {
-        log.info("Saved new {}", user);
+    public boolean createUser(User user) {
+        String email = user.getEmail();
+        if(userRepository.findByEmail(email) != null) return false;
+        user.setActive(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(Role.ROLE_USER);
+        log.info("Saving new User with email: {}", email);
         userRepository.save(user);
+        return true;
     }
 
-    public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
-    }
-
-    public User getUserById(Integer id) {
-        return userRepository.findById(id).orElse(null);
-    }
+//    public List<User> listUser(String name) {
+//        return userRepository.findAll();
+//    }
+//
+//    public void saveUser(User user) {
+//        log.info("Saved new {}", user);
+//        userRepository.save(user);
+//    }
+//
+//    public void deleteUser(Integer id) {
+//        userRepository.deleteById(id);
+//    }
+//
+//    public User getUserById(Integer id) {
+//        return userRepository.findById(id).orElse(null);
+//    }
 }
 
