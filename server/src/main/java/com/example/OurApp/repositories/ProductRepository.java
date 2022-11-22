@@ -1,0 +1,10 @@
+package com.example.OurApp.repositories;
+
+import com.example.OurApp.models.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ProductRepository extends JpaRepository<Product, Integer> { // наслід.,щоб не прописувати свою логіку взаємодії з базою даних
+    List<Product> findByTitle(String title);
+}
