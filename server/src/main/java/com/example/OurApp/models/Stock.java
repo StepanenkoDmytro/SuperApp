@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "stocks")
@@ -15,9 +13,17 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Stock {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "stock_id")
     private Long id;
+
+    @Column(name = "stock_name")
     private String stock;
+
+    @Column(name = "stock_desc")
     private String stock_desc;
+
+    @Column(name = "stock_price")
     private int price;
 
 }
