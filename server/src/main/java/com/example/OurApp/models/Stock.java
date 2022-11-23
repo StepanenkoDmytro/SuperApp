@@ -20,8 +20,8 @@ public class Stock {
     @Column(name = "stock_name")
     private String stock;
 
-    @Column(name = "stock_desc")
-    private String stock_desc;
+    @Column(name = "stock_exchange")
+    private String stock_exchange;
 
     @Column(name = "stock_price")
     private int price;
