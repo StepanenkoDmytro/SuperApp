@@ -27,22 +27,5 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
-
-//    public List<User> listUser(String name) {
-//        return userRepository.findAll();
-//    }
-//
-//    public void saveUser(User user) {
-//        log.info("Saved new {}", user);
-//        userRepository.save(user);
-//    }
-//
-//    public void deleteUser(Integer id) {
-//        userRepository.deleteById(id);
-//    }
-//
-//    public User getUserById(Integer id) {
-//        return userRepository.findById(id).orElse(null);
-//    }
 }
 

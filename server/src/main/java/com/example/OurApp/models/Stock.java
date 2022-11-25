@@ -26,4 +26,7 @@ public class Stock {
     @Column(name = "stock_price")
     private int price;
 
+    @Column(name = "stock_desc")
+    private String stock_desc;
+
 }

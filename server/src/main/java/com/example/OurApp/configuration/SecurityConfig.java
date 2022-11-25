@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration")  //url, які нам доступні для перегляду
+                .antMatchers("/", "/registration","/stocks/**")  //url, які нам доступні для перегляду
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -31,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-
 
     }
 
