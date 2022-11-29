@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+
+<!--як раз явно вказуємо, що ми використовуємо наш шаблонізатор з dependencies-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Posts Edit</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <!--   Підключаю стилі CSS для шаблона сторінки(поки Лешка не напишу краще)-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<!--вставили фрагмент шаблону-->
+<header th:insert="blocks/header.html :: header"></header>
+
+<!--mt-5 та mb-5, це просто отступи (зверху і знизу відповідно по 50 пікселей-->
+<div class="container mt-5 mb-5">
+  <h3>Редагування статті</h3>
+  <div th:each="el : ${post}">
+
+  <!--  опрацювання всіх значень, які будуть поступати із цієї форми -->
+  <!--  буде відбуватися цій сторінці!-->
+    <form method="post">
+      <!--  вказуємо метод передачі даних (вибрав post, тобто скритно будуть передаватись на сервер,-->
+      <!--  якщо вказати метод передчі get, тоді всі дані будуть передані в url адресі)-->
+      <input type="text" th:value="${el.title}" name="title" placeholder="Введіть назву статті" class="form-control"><br>
+      <textarea name="full_text" placeholder="Введіть дані" class="form-control" th:text="${el.full_text}" /><br>
+      <input type="text" th:value="${el.small_text}" name="small_text" placeholder="Короткий опис" class="form-control"><br>
+      <button type="submit" class="btn btn-success">Оновити статтю</button><br>
+    </form>
+  </div>
+</div>
+
+<!--вставили фрагмент шаблону-->
+<div th:insert="blocks/footer.html :: footer"></div>
+</body>
+</html>

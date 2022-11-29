@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+
+<!--як раз явно вказуємо, що ми використовуємо наш шаблонізатор з dependencies-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Posts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!--   Підключаю стилі CSS для шаблона сторінки(поки Лешка не напишу краще)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<!--вставили фрагмент шаблону-->
+<header th:insert="blocks/header.html :: header"></header>
+
+<div class="container mt-5">
+    <h3>Доступні пости</h3>
+    <a class="me-3 py-2 text-dark text-decoration-none" href="/posts/add">Post add</a>
+
+    <!--  створили цикл, щоб пройтись списком (class...це чисто для того, щоб краще віглядало-->
+    <div th:each="el : ${posts}" class="alert alert-info mt-2">
+        <!--    тут вже можемо посилатись на конкретну зміну елементу(об`єкту)-->
+        <h3 th:text="${el.title}"/>
+        <p th:text="${el.small_text}"/>
+        <a th:href="'/posts/' + ${el.id}" class="btn btn-warning">Читати</a>
+    </div>
+</div>
+
+<!--вставили фрагмент шаблону-->
+<div th:insert="blocks/footer.html :: footer"></div>
+</body>
+</html>
