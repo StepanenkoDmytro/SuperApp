@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button } from '@mui/material';
-import { Footer, Header } from './Components';
+import { Footer, Header } from './Components/Common';
 
 function App() {
   const showAlert = () => {

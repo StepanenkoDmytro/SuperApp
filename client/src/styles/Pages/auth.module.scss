@@ -1,0 +1,24 @@
+.authPage {
+    width: 100vw;
+    height: 100vh;
+    background: url("http://localhost:3000/images/auth-bg.png");
+    background-size: cover;
+}
+
+.contentBlock {
+    width: 50%;
+    height: 100%;
+    background-color: #deb000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paper {
+    padding: 15px;
+}
+
+.social {
+    display: flex;
+    justify-content: space-between;
+}

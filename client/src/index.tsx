@@ -4,13 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth } from './Pages/Auth';
+import { createTheme, ThemeProvider } from '@mui/material';
+import './styles/global.scss';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#000'
+    }
+  }
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Auth />
+    <ThemeProvider theme={theme}>
+      <Auth />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
