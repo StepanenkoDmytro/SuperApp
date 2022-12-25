@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Auth } from './Pages/Auth';
 import { createTheme, ThemeProvider } from '@mui/material';
 import './styles/global.scss';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes';
 
 const theme = createTheme({
   palette: {
@@ -21,7 +21,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Auth />
+      <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>
 );

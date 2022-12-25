@@ -8,7 +8,8 @@
 .contentBlock {
     width: 50%;
     height: 100%;
-    background-color: #deb000;
+    background: url("http://localhost:3000/images/auth-form-bg.svg");
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
