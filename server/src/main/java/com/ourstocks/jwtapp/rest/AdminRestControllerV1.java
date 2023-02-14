@@ -1,6 +1,6 @@
 package com.ourstocks.jwtapp.rest;
 
-import com.ourstocks.jwtapp.dto.AdminUserDto;
+import com.ourstocks.jwtapp.dto.usersDTO.AdminUserDto;
 import com.ourstocks.jwtapp.model.User;
 import com.ourstocks.jwtapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

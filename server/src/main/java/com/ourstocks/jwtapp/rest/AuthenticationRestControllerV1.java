@@ -1,7 +1,7 @@
 package com.ourstocks.jwtapp.rest;
 
-import com.ourstocks.jwtapp.dto.AuthenticationRequestDto;
-import com.ourstocks.jwtapp.dto.SignUpDto;
+import com.ourstocks.jwtapp.dto.usersDTO.AuthenticationRequestDto;
+import com.ourstocks.jwtapp.dto.usersDTO.SignUpDTO;
 import com.ourstocks.jwtapp.model.User;
 import com.ourstocks.jwtapp.security.jwt.JwtTokenProvider;
 import com.ourstocks.jwtapp.service.UserService;
@@ -65,27 +65,15 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<?> registerUser(@RequestBody @Valid SignUpDto newUser) {
-
+    public ResponseEntity<?> registerUser(@RequestBody @Valid SignUpDTO newUser) {
         if(userService.existsByUsername(newUser)){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-//            return ResponseEntity.badRequest().body(newUser);
         }
-
         if(userService.existsByEmail(newUser)){
             return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
-//            return ResponseEntity.badRequest().body(newUser);
         }
-
-        User user = new User();
-        user.setUsername(newUser.getUsername());
-        user.setFirstName(newUser.getFirstName());
-        user.setLastName(newUser.getLastName());
-        user.setEmail(newUser.getEmail());
-        user.setPassword(newUser.getPassword());
-
+        User user = SignUpDTO.SignUpToUser(newUser);
         userService.register(user);
-
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
 }

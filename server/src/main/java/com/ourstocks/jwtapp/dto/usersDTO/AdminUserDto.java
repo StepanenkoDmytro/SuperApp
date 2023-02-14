@@ -1,4 +1,4 @@
-package com.ourstocks.jwtapp.dto;
+package com.ourstocks.jwtapp.dto.usersDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

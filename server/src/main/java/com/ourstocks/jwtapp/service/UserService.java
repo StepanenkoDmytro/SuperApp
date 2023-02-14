@@ -1,10 +1,9 @@
 package com.ourstocks.jwtapp.service;
 
-import com.ourstocks.jwtapp.dto.SignUpDto;
+import com.ourstocks.jwtapp.dto.usersDTO.SignUpDTO;
 import com.ourstocks.jwtapp.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
@@ -16,9 +15,10 @@ public interface UserService {
     User findByUsername(String username);
 
     User findById(Long id);
+    void update(User user);
 
     void delete(Long id);
 
-    boolean existsByUsername(SignUpDto user);
-    boolean existsByEmail(SignUpDto user);
+    boolean existsByUsername(SignUpDTO user);
+    boolean existsByEmail(SignUpDTO user);
 }

@@ -1,4 +1,4 @@
-package com.ourstocks.jwtapp.dto;
+package com.ourstocks.jwtapp.dto.usersDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -7,8 +7,8 @@ import com.ourstocks.jwtapp.model.User;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDto {
-    private Long id;
+public class UserDTO {
+//    private Long id;
     private String username;
     private String firstName;
     private String lastName;
@@ -16,7 +16,6 @@ public class UserDto {
 
     public User toUser(){
         User user = new User();
-        user.setId(id);
         user.setUsername(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -25,14 +24,23 @@ public class UserDto {
         return user;
     }
 
-    public static UserDto fromUser(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
+    public static UserDTO fromUser(User user) {
+        UserDTO userDto = new UserDTO();
         userDto.setUsername(user.getUsername());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
 
         return userDto;
+    }
+
+    public User toUser(User user){
+//        user.setId(id);
+        user.setUsername(username);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+
+        return user;
     }
 }

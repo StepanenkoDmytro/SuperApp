@@ -1,13 +1,15 @@
-package com.ourstocks.jwtapp.dto;
+package com.ourstocks.jwtapp.dto.usersDTO;
 
 import lombok.Data;
+import com.ourstocks.jwtapp.model.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Data
-public class SignUpDto {
+public class SignUpDTO {
     @NotEmpty(message = "User's name cannot be empty.")
     @Size(min = 3, max = 100,
             message = "length should be between 3 to 100")
@@ -21,4 +23,20 @@ public class SignUpDto {
     private String password;
     @NotBlank(message = "User's email cannot be empty.")
     private String email;
+
+    private Date created;
+
+    public static User SignUpToUser(SignUpDTO signUpDTO){
+        User user = new User();
+        user.setUsername(signUpDTO.getUsername());
+        user.setFirstName(signUpDTO.getFirstName());
+        user.setLastName(signUpDTO.getLastName());
+        user.setEmail(signUpDTO.getEmail());
+        user.setPassword(signUpDTO.getPassword());
+
+        Date date = new Date();
+        user.setCreated(date);
+        user.setUpdated(date);
+        return user;
+    }
 }

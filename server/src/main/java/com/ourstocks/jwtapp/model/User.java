@@ -34,17 +34,17 @@ public class User extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-            CascadeType.REFRESH, CascadeType.MERGE},
-            mappedBy = "author")
-    private List<Post> posts;
-
-    public void addPostToUser(Post post) {
-        if (posts == null) {
-            posts = new ArrayList<>();
-        }
-        posts.add(post);
-        post.setAuthor(this);
-    }
+//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+//            CascadeType.REFRESH, CascadeType.MERGE},
+//            mappedBy = "author")
+//    private List<Post> posts;
+//
+//    public void addPostToUser(Post post) {
+//        if (posts == null) {
+//            posts = new ArrayList<>();
+//        }
+//        posts.add(post);
+//        post.setAuthor(this);
+//    }
 }
 
