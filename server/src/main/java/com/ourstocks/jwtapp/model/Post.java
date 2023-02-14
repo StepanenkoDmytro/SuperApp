@@ -4,6 +4,8 @@ import com.ourstocks.jwtapp.dto.usersDTO.UserDTO;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -15,11 +17,11 @@ public class Post extends BaseEntity{
     @Column(name = "full_text")
     private String fullText;
 
-//    @OneToMany(fetch = FetchType.LAZY,
-//            cascade = {CascadeType.PERSIST,CascadeType.DETACH,
-//            CascadeType.REFRESH,CascadeType.MERGE},
-//            mappedBy = "post")
-//    private List<СommentPost> comments;
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+            CascadeType.REFRESH,CascadeType.MERGE},
+            mappedBy = "post")
+    private List<PostComment> comments;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
             CascadeType.REFRESH, CascadeType.MERGE})
@@ -65,6 +67,14 @@ public class Post extends BaseEntity{
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public List<PostComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<PostComment> comments) {
+        this.comments = comments;
     }
 
     public boolean equals(final Object o) {
@@ -113,13 +123,13 @@ public class Post extends BaseEntity{
                 + ")";
     }
 
-//    public void addCommentToPost(СommentPost comment){
-//        if(comments == null){
-//            comments = new ArrayList<>();
-//        }
-//        comments.add(comment);
-//        comment.setPost(this);
-//    }
+    public void addCommentToPost(PostComment comment){
+        if(comments == null){
+            comments = new ArrayList<>();
+        }
+        comments.add(comment);
+        comment.setPost(this);
+    }
 
 //    public void addImageToPost(Image image) {
 //        image.setPost(this);

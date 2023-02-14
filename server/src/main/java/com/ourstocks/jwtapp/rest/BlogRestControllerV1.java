@@ -1,8 +1,11 @@
 package com.ourstocks.jwtapp.rest;
 
+import com.ourstocks.jwtapp.dto.postsDTO.CommentDTO;
 import com.ourstocks.jwtapp.dto.postsDTO.PostDTO;
 import com.ourstocks.jwtapp.dto.postsDTO.RequestPostDTO;
 import com.ourstocks.jwtapp.model.Post;
+import com.ourstocks.jwtapp.model.PostComment;
+import com.ourstocks.jwtapp.model.Status;
 import com.ourstocks.jwtapp.repository.UserRepository;
 import com.ourstocks.jwtapp.security.jwt.JwtUser;
 import com.ourstocks.jwtapp.service.PostService;
@@ -82,5 +85,21 @@ public class BlogRestControllerV1 {
         postService.deletePost(id);
         String message = "Post with id: " + id + " successfully deleted";
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "{id}/addcomment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Post> addCommentToPost(@AuthenticationPrincipal JwtUser jwtUser,
+                                                 @PathVariable(name = "id") Long id,
+                                                 @RequestBody CommentDTO commentDTO){
+        Post post = postService.findPostById(id);
+        if(!postService.existsPostById(id)){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        User user = userRepository.findByUsername(jwtUser.getUsername());
+        PostComment comment = new PostComment(commentDTO.getComment());
+        comment.setStatus(Status.ACTIVE);
+        comment.setAuthor(user);
+        post.addCommentToPost(comment);
+        return new ResponseEntity<>(post,HttpStatus.OK);
     }
 }
