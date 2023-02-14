@@ -106,7 +106,11 @@ public class Post extends BaseEntity{
     }
 
     public String toString() {
-        return "Post(title=" + this.getTitle() + ", anons=" + this.getAnons() + ", fullText=" + this.getFullText() + ", author=" + this.getAuthor() + ")";
+        return "Post(title=" + this.getTitle()
+                + ", anons=" + this.getAnons()
+                + ", fullText=" + this.getFullText()
+                + ", author=" + this.getAuthor()
+                + ")";
     }
 
 //    public void addCommentToPost(СommentPost comment){
