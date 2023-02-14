@@ -4,12 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import com.ourstocks.jwtapp.model.User;
 
-/**
- * DTO class for user requests by ROLE_USER
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

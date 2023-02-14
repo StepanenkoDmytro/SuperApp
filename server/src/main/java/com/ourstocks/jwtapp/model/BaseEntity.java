@@ -13,14 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
-/**
- * Base class with property 'id'.
- * Used as a base class for all objects that requires this property.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @MappedSuperclass
 @Data
 public class BaseEntity {

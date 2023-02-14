@@ -18,15 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * REST controller for authentication requests (login, logout, register, etc.)
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 @RestController
 @RequestMapping(value = "/api/v1/auth/")
@@ -71,7 +65,7 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpDto newUser) {
+    public ResponseEntity<?> registerUser(@RequestBody @Valid SignUpDto newUser) {
 
         if(userService.existsByUsername(newUser)){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);

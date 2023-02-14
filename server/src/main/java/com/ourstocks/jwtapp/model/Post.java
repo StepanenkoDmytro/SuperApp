@@ -2,24 +2,53 @@ package com.ourstocks.jwtapp.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity //тепер наш клас є моделю, та відповідає за якусь табличку в БД
-@Table(name = "posts") //якщо не задати назву таблиці таким чином, то назва таблиці буде вибрана автоматично
-@Data //анотація ломбоку, яка за мене пише гетери, сеттери, перевизначає hash-code та equals, визначає toString
-public class Post extends BaseEntity {
-
-    @Column(name = "post_title")
+@Entity
+@Table(name = "posts")
+@Data
+public class Post extends BaseEntity{
+    @Column(name = "title")
+    @NotBlank(message = "Post's title cannot be empty.")
     private String title;
+    @Column(name = "anons")
+    private String anons;
+    @Column(name = "full_text")
+    @NotBlank(message = "Post's text cannot be empty.")
+    private String fullText;
 
-    @Column(name = "post_full_text")
-    private String full_text;
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+            CascadeType.REFRESH,CascadeType.MERGE},
+            mappedBy = "post")
+    private List<СommentPost> comments;
 
-    @Column(name = "post_small_text")
-    private String small_text;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+            CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "author_id")
+    private User author;
 
-    @Column(name = "post_views")
-    private int views;
+    public Post() {
+    }
+
+    public Post(String title, String anons, String fullText) {
+        this.title = title;
+        this.anons = anons;
+        this.fullText = fullText;
+    }
+
+    public void addCommentToPost(СommentPost comment){
+        if(comments == null){
+            comments = new ArrayList<>();
+        }
+        comments.add(comment);
+        comment.setPost(this);
+    }
+
+//    public void addImageToPost(Image image) {
+//        image.setPost(this);
+//        images.add(image);
+//    }
 }

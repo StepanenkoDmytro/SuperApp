@@ -5,16 +5,9 @@ import lombok.Data;
 import com.ourstocks.jwtapp.model.Status;
 import com.ourstocks.jwtapp.model.User;
 
-/**
- * DTO class for user requests by ROLE_ADMIN
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AdminUserDto {//bjhbj
+public class AdminUserDto {
     private Long id;
     private String username;
     private String firstName;

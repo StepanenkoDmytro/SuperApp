@@ -9,13 +9,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-/**
- * Simple domain object that represents application user's role - ADMIN, USER, etc.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @Entity
 @Table(name = "roles")
 @Data

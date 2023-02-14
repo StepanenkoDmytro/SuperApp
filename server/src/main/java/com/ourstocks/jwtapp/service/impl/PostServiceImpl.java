@@ -24,44 +24,49 @@ public class PostServiceImpl implements PostService {
         this.postRepository = postRepository;
     }
 
-    @Override//
+    @Override
     public Post register(Post post) {
         post.setStatus(Status.ACTIVE);
         Post registerPost = postRepository.save(post);
-
         log.info("IN register - post: {} successfully added", registerPost);
-
         return registerPost;
     }
 
-    @Override//
+    @Override
     public List<Post> getAll() {
-        return postRepository.findAll();
+        List<Post> result = postRepository.findAll();
+        log.info("IN getAll - post: {} posts found", result.size());
+        return result;
     }
 
-    @Override//
+    @Override
     public Post findPostByTitle(String title) {
-        return postRepository.findPostByTitle(title);
+        Post post = postRepository.findPostByTitle(title);
+        log.info("IN findPostByTitle - post: {} found by title: {}", post, title);
+        return post;
     }
 
-    @Override//
-    public Optional<Post> findPostById(Long id) {
-        return postRepository.findById(id);
+    @Override
+    public Post findPostById(Long id) {
+        Post post = postRepository.findById(id).orElse(null);
+        log.info("IN findPostById - post: {} found by id: {}", post, id);
+        return post;
     }
 
-    @Override//
+    @Override
     public void deletePost(@PathVariable(value = "id") Long id) {
         postRepository.deleteById(id);
+        log.info("IN deletePost - post with id: {} successfully deleted", id);
     }
 
-    @Override//
+    @Override
     public boolean existsPostByTitle(PostDto post) {
         if (postRepository.existsPostByTitle(post.getTitle())) {
             return true;
         }
         return false;
     }
-    @Override//
+    @Override
     public boolean existsPostById(Long id) {
         if (postRepository.existsPostById(id)) {
             return true;

@@ -4,19 +4,14 @@ import com.ourstocks.jwtapp.dto.SignUpDto;
 import com.ourstocks.jwtapp.model.User;
 
 import java.util.List;
-
-/**
- * Service interface for class {@link User}.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
+import java.util.Optional;
 
 public interface UserService {
 
     User register(User user);
 
     List<User> getAll();
+    User findByEmail(String email);
 
     User findByUsername(String username);
 
