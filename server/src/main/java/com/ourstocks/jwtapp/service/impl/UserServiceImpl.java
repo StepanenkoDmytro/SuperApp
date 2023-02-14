@@ -1,6 +1,6 @@
 package com.ourstocks.jwtapp.service.impl;
 
-import com.ourstocks.jwtapp.dto.SignUpDto;
+import com.ourstocks.jwtapp.dto.usersDTO.SignUpDTO;
 import com.ourstocks.jwtapp.model.Role;
 import com.ourstocks.jwtapp.model.Status;
 import com.ourstocks.jwtapp.model.User;
@@ -14,14 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Implementation of {@link UserService} interface.
- * Wrapper for {@link UserRepository} + business logic.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 @Service
 @Slf4j
@@ -63,6 +55,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        User result = userRepository.findByEmail(email).orElse(null);
+        log.info("IN findByEmail - user: {} found by email: {}", result, email);
+        return result;
+    }
+
+    @Override
     public User findByUsername(String username) {
         User result = userRepository.findByUsername(username);
         log.info("IN findByUsername - user: {} found by username: {}", result, username);
@@ -72,30 +71,39 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         User result = userRepository.findById(id).orElse(null);
-
         if (result == null) {
             log.warn("IN findById - no user found by id: {}", id);
             return null;
         }
-
-        log.info("IN findById - user: {} found by id: {}", result);
+        log.info("IN findById - user: {} found by id: {}", result, id);
         return result;
     }
 
     @Override
-    public void delete(Long id) {
-        userRepository.deleteById(id);
-        log.info("IN delete - user with id: {} successfully deleted");
+    public void update(User user) {
+        userRepository.save(user);
+        log.info("IN update - user: {} successfully updated", user);
     }
 
-    public boolean existsByUsername(SignUpDto user) {
+    @Override
+    public void delete(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user == null) {
+            log.warn("IN delete - no user found by id: {}", id);
+        }else {
+            user.setStatus(Status.DELETED);
+            log.info("IN delete - user with id: {} successfully change status on DELETED", id);
+        }
+    }
+
+    public boolean existsByUsername(SignUpDTO user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             return true;
         }
         return false;
     }
 
-    public boolean existsByEmail(SignUpDto user) {
+    public boolean existsByEmail(SignUpDTO user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             return true;
         }

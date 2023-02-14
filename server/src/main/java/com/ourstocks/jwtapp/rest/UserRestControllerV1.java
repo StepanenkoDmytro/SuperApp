@@ -1,22 +1,13 @@
 package com.ourstocks.jwtapp.rest;
 
-import com.ourstocks.jwtapp.dto.UserDto;
+import com.ourstocks.jwtapp.dto.usersDTO.UserDTO;
 import com.ourstocks.jwtapp.model.User;
 import com.ourstocks.jwtapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-/**
- * REST controller user connected requestst.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/v1/users/")
@@ -28,16 +19,25 @@ public class UserRestControllerV1 {
         this.userService = userService;
     }
 
-    @GetMapping(value = "{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id){
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> getUserById(@PathVariable(name = "id") Long id){
         User user = userService.findById(id);
-
         if(user == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
-        UserDto result = UserDto.fromUser(user);
+        UserDTO result = UserDTO.fromUser(user);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @RequestMapping(value = "{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> updateUserBy(@RequestBody UserDTO userDTO){
+        User user = userService.findByUsername(userDTO.getUsername());
+        user = userDTO.toUser(user);
+        userService.update(user);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+
+
+
 }

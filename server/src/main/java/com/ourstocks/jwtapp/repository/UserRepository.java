@@ -3,15 +3,11 @@ package com.ourstocks.jwtapp.repository;
 import com.ourstocks.jwtapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- * Repository interface that extends {@link JpaRepository} for class {@link User}.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String name);
     Boolean existsByUsername(String name);
     Boolean existsByEmail(String name);
+    Optional<User> findByEmail(String email);
 }

@@ -1,7 +1,7 @@
 package com.ourstocks.jwtapp.rest;
 
-import com.ourstocks.jwtapp.dto.AuthenticationRequestDto;
-import com.ourstocks.jwtapp.dto.SignUpDto;
+import com.ourstocks.jwtapp.dto.usersDTO.AuthenticationRequestDto;
+import com.ourstocks.jwtapp.dto.usersDTO.SignUpDTO;
 import com.ourstocks.jwtapp.model.User;
 import com.ourstocks.jwtapp.security.jwt.JwtTokenProvider;
 import com.ourstocks.jwtapp.service.UserService;
@@ -18,15 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * REST controller for authentication requests (login, logout, register, etc.)
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 @RestController
 @RequestMapping(value = "/api/v1/auth/")
@@ -71,27 +65,15 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpDto newUser) {
-
+    public ResponseEntity<?> registerUser(@RequestBody @Valid SignUpDTO newUser) {
         if(userService.existsByUsername(newUser)){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-//            return ResponseEntity.badRequest().body(newUser);
         }
-
         if(userService.existsByEmail(newUser)){
             return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
-//            return ResponseEntity.badRequest().body(newUser);
         }
-
-        User user = new User();
-        user.setUsername(newUser.getUsername());
-        user.setFirstName(newUser.getFirstName());
-        user.setLastName(newUser.getLastName());
-        user.setEmail(newUser.getEmail());
-        user.setPassword(newUser.getPassword());
-
+        User user = SignUpDTO.SignUpToUser(newUser);
         userService.register(user);
-
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
 }
