@@ -116,9 +116,11 @@
             </column>
 
             <column name="distributor_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
             </column>
 
             <column name="subscriber_id" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
 
             <column name="status" type="VARCHAR(25)" defaultValue="NOT_ACTIVE">

@@ -1,17 +1,13 @@
 package com.ourstocks.jwtapp.model;
 
-import lombok.Data;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "roles")
-@Data
 public class Role extends BaseEntity {
 
     @Column(name = "name")
@@ -20,10 +16,11 @@ public class Role extends BaseEntity {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id: " + super.getId() + ", " +
-                "name: " + name + "}";
+    public Role() {
     }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof Role;
+    }
+
 }

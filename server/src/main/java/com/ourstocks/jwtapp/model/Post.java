@@ -1,5 +1,6 @@
 package com.ourstocks.jwtapp.model;
 
+import com.ourstocks.jwtapp.dto.postsDTO.PostDTO;
 import com.ourstocks.jwtapp.dto.usersDTO.UserDTO;
 
 import javax.persistence.*;
@@ -135,4 +136,5 @@ public class Post extends BaseEntity{
 //        image.setPost(this);
 //        images.add(image);
 //    }
+
 }
