@@ -2,26 +2,24 @@ package com.ourstocks.jwtapp.model;
 
 import com.ourstocks.jwtapp.dto.postsDTO.PostDTO;
 import com.ourstocks.jwtapp.dto.usersDTO.UserDTO;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "comments")
-public class PostComment extends BaseEntity{
+public class PostComment extends BaseEntity {
     @Column(name = "comment")
     @NotBlank(message = "Comment can not be empty")
     @Size(max = 200)
     private String comment;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
             CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "author_id")
     private User author;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
             CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "post_id")
     private Post post;
@@ -37,20 +35,20 @@ public class PostComment extends BaseEntity{
         return this.comment;
     }
 
-    public UserDTO getAuthor() {
-        return UserDTO.fromUser(this.author);
-    }
-
-    public PostDTO getPost() {
-        return PostDTO.fromPost(this.post);
-    }
-
     public void setComment(@NotBlank(message = "Comment can not be empty") @Size(max = 200) String comment) {
         this.comment = comment;
     }
 
+    public UserDTO getAuthor() {
+        return UserDTO.fromUser(this.author);
+    }
+
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public PostDTO getPost() {
+        return PostDTO.fromPost(this.post);
     }
 
     public void setPost(Post post) {

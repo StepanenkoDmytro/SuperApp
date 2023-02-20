@@ -6,10 +6,11 @@ import com.ourstocks.jwtapp.model.Status;
 import com.ourstocks.jwtapp.model.User;
 import com.ourstocks.jwtapp.repository.RoleRepository;
 import com.ourstocks.jwtapp.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
 import com.ourstocks.jwtapp.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,13 +22,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(user.getPassword());
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
 
@@ -88,25 +87,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         User user = userRepository.findById(id).orElse(null);
-        if(user == null) {
+        if (user == null) {
             log.warn("IN delete - no user found by id: {}", id);
-        }else {
+        } else {
             user.setStatus(Status.DELETED);
             log.info("IN delete - user with id: {} successfully change status on DELETED", id);
         }
     }
 
+    @Override
     public boolean existsByUsername(SignUpDTO user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            return true;
-        }
-        return false;
+        return userRepository.existsByUsername(user.getUsername());
     }
 
+    @Override
     public boolean existsByEmail(SignUpDTO user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            return true;
-        }
-        return false;
+        return userRepository.existsByEmail(user.getEmail());
     }
 }

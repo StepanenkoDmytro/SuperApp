@@ -2,7 +2,7 @@ package com.ourstocks.jwtapp.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user_followers")

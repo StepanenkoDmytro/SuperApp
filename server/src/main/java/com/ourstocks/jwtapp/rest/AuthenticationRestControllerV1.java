@@ -5,6 +5,7 @@ import com.ourstocks.jwtapp.dto.usersDTO.SignUpDTO;
 import com.ourstocks.jwtapp.model.User;
 import com.ourstocks.jwtapp.security.jwt.JwtTokenProvider;
 import com.ourstocks.jwtapp.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,12 +25,8 @@ import java.util.Map;
 public class AuthenticationRestControllerV1 {
 
     private final AuthenticationManager authenticationManager;
-
     private final JwtTokenProvider jwtTokenProvider;
-
     private final UserService userService;
-
-
 
     @Autowired
     public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
@@ -45,10 +41,6 @@ public class AuthenticationRestControllerV1 {
             User user = userService.findByEmail(requestDto.getEmail());
             String username = user.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
-
-            if (user == null) {
-                throw new UsernameNotFoundException("User with username: " + username + " not found");
-            }
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
 

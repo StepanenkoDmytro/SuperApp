@@ -3,9 +3,8 @@ package com.ourstocks.jwtapp.dto.usersDTO;
 import lombok.Data;
 import com.ourstocks.jwtapp.model.User;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+
 import java.util.Date;
 
 @Data

@@ -44,7 +44,7 @@ public class UserRestControllerV1 {
 //        return new ResponseEntity<>(result, HttpStatus.OK);
 //    }//old version
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getUserById(@PathVariable(name = "id") Long id) throws UsernameNotFoundException {
         User user = userService.findById(id);
         if(user == null){
@@ -85,7 +85,7 @@ public class UserRestControllerV1 {
         return new ResponseEntity<>(updateFollowList,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "follow/{id}/no", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "follow/{id}/no", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<UserFollows>> answerFollowNo(@PathVariable(name = "id") Long id,
                                                             @AuthenticationPrincipal JwtUser jwtUser) {
         User user = userService.findByUsername(jwtUser.getUsername());
