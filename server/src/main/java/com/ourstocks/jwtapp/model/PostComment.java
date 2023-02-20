@@ -6,6 +6,7 @@ import com.ourstocks.jwtapp.dto.usersDTO.UserDTO;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
